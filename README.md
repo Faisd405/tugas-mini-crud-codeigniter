@@ -1,68 +1,161 @@
-# CodeIgniter 4 Application Starter
+# CI4 Mini Web App - Sistem Manajemen Artikel
 
-## What is CodeIgniter?
+Ini adalah aplikasi web mini yang dibangun dengan CodeIgniter 4 yang menyediakan manajemen artikel, pengumpulan umpan balik pengguna, dan dasbor admin.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Fitur
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- **Landing Page Modern**: Halaman beranda yang bersih dan responsif yang menampilkan fitur aplikasi dan artikel terbaru
+- **Manajemen Artikel**: Membuat, membaca, memperbarui, dan menghapus artikel dengan fungsi draft
+- **Sistem Umpan Balik**: Memungkinkan pengunjung mengirimkan umpan balik melalui formulir sederhana
+- **Dasbor Admin**: Area admin yang aman untuk mengelola artikel dan melihat umpan balik yang dikirimkan
+- **Otentikasi Pengguna**: Login yang aman untuk administrator
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Akun Pengguna
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+### Akun Admin
+- **Username**: admin
+- **Email**: admin@example.com
+- **Password**: password
+- **Hak Akses**: Akses penuh ke dasbor admin, dapat mengelola semua artikel dan melihat semua umpan balik
 
-## Installation & updates
+### Akun Pengguna Demo
+- **Username**: user
+- **Email**: user@example.com
+- **Password**: password123
+- **Hak Akses**: Akses terbatas untuk membuat dan mengedit artikel milik sendiri saja
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+## Instalasi & Pengaturan
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+1. Clone repositori ke lingkungan lokal Anda:
+   ```
+   git clone https://github.com/yourusername/tugas_ci_crud.git
+   ```
 
-## Setup
+2. Navigasi ke direktori proyek:
+   ```
+   cd tugas_ci_crud
+   ```
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+3. Instal dependensi menggunakan Composer:
+   ```
+   composer install
+   ```
 
-## Important Change with index.php
+4. Salin `env` ke `.env` dan konfigurasi lingkungan Anda:
+   ```
+   cp env .env
+   ```
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+5. Perbarui file `.env` dengan pengaturan database Anda:
+   ```
+   database.default.hostname = localhost
+   database.default.database = ci4_crud
+   database.default.username = your_username
+   database.default.password = your_password
+   database.default.DBDriver = MySQLi
+   ```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+6. Jalankan migrasi database:
+   ```
+   php spark migrate
+   ```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+7. Isi database dengan data awal (termasuk pengguna admin):
+   ```
+   php spark db:seed DatabaseSeeder
+   ```
 
-## Repository Management
+8. Mulai server pengembangan:
+   ```
+   php spark serve
+   ```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+9. Akses aplikasi di `http://localhost:8080`
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+## Penggunaan
 
-## Server Requirements
+### Area Publik
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+- **Halaman Beranda**: Lihat artikel terbaru dan jelajahi fitur
+- **Tampilan Artikel**: Baca artikel lengkap dan jelajahi konten lainnya
+- **Formulir Umpan Balik**: Kirimkan umpan balik atau pertanyaan melalui formulir
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+### Area Admin
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+1. Login di `/auth/login` menggunakan kredensial admin di atas
+2. Dasbor admin menyediakan akses ke:
+   - Manajemen artikel (membuat, mengedit, menghapus, mempublikasikan/tidak mempublikasikan)
+   - Manajemen umpan balik (melihat dan menghapus umpan balik)
+   - Manajemen pengguna
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+## Struktur Proyek
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+- `/app/Controllers` - Controller aplikasi termasuk Home, Auth, dan controller Admin
+- `/app/Models` - Model data untuk Artikel, Umpan Balik, dan Pengguna
+- `/app/Views` - Template tampilan untuk area publik dan admin
+- `/app/Config` - File konfigurasi termasuk rute, filter, dan pengaturan database
+
+## Fitur Secara Rinci
+
+### Manajemen Artikel
+
+Aplikasi ini menyediakan sistem manajemen artikel yang komprehensif:
+
+- **Membuat Artikel**: Tulis artikel dengan editor teks kaya fitur
+- **Sistem Draft**: Simpan artikel sebagai draft sebelum mempublikasikan
+- **Edit & Hapus**: Perbarui atau hapus artikel yang ada
+- **Kontrol Publikasi**: Publikasikan atau batalkan publikasi artikel sesuai kebutuhan
+- **Slug**: Slug URL yang ramah dan dibuat secara otomatis untuk SEO yang lebih baik
+
+### Sistem Umpan Balik
+
+Kumpulkan dan kelola umpan balik pengguna:
+
+- **Formulir Ramah Pengguna**: Formulir kontak yang mudah digunakan
+- **Validasi**: Validasi sisi klien dan server untuk pengiriman
+- **Review Admin**: Semua umpan balik disimpan untuk ditinjau admin
+- **Manajemen**: Hapus atau arsipkan umpan balik sesuai kebutuhan
+
+### Otentikasi Pengguna
+
+Aplikasi ini mencakup sistem otentikasi yang sederhana namun aman:
+
+- **Login/Logout**: Otentikasi aman untuk pengguna admin
+- **Manajemen Sesi**: Penanganan sesi pengguna dengan benar
+- **Kontrol Akses**: Izin berbasis peran untuk area yang berbeda
+
+## Persyaratan Sistem
+
+- **PHP**: Versi 8.1 atau lebih tinggi
+- **Ekstensi**: intl, mbstring, json, mysqlnd
+- **Database**: MySQL 5.7+ atau MariaDB 10.2+
+- **Web Server**: Apache dengan mod_rewrite atau Nginx
+
+## Kredit
+
+- Dibangun dengan [CodeIgniter 4](https://codeigniter.com)
+- Styling frontend dengan [Bootstrap 5](https://getbootstrap.com)
+- Ikon oleh [Font Awesome](https://fontawesome.com)
+
+## Lisensi
+
+Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](LICENSE) untuk detail.
+
+## Kontribusi
+
+Kontribusi untuk meningkatkan CI4 Mini Web App sangat diterima. Berikut cara Anda dapat berkontribusi:
+
+1. Fork repositori
+2. Buat branch fitur (`git checkout -b fitur/fitur-luar-biasa`)
+3. Buat perubahan Anda
+4. Commit perubahan Anda (`git commit -m 'Tambahkan fitur luar biasa'`)
+5. Push ke branch (`git push origin fitur/fitur-luar-biasa`)
+6. Buka Pull Request
+
+### Standar Koding
+
+Proyek ini mengikuti standar koding [PSR-12](https://www.php-fig.org/psr/psr-12/). Harap pastikan kode Anda mengikuti standar ini sebelum mengirimkan pull request.
+
+### Melaporkan Masalah
+
+Jika Anda menemukan bug atau memiliki saran fitur, silakan buat issue di repositori GitHub.
