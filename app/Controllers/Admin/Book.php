@@ -59,7 +59,7 @@ class Book extends BaseController
             'action' => 'create'
         ];
 
-        if ($this->request->getMethod() === 'post') {
+        if (strtolower($this->request->getMethod()) === 'post') {
             $rules = [
                 'title' => 'required|min_length[3]|max_length[255]',
                 'author' => 'required|min_length[3]|max_length[255]',
@@ -86,12 +86,9 @@ class Book extends BaseController
                     'status' => $this->request->getPost('status')
                 ];
 
-                if ($this->bookModel->save($bookData)) {
-                    session()->setFlashdata('success', 'Book was successfully created!');
-                    return redirect()->to(site_url('admin/book'));
-                } else {
-                    session()->setFlashdata('error', 'Failed to create book!');
-                }
+                $this->bookModel->save($bookData);
+                session()->setFlashdata('success', 'Book was successfully created');
+                return redirect()->to(site_url('admin/book'));
             } else {
                 $data['validation'] = $this->validator;
             }
@@ -120,7 +117,7 @@ class Book extends BaseController
             'action' => 'edit'
         ];
 
-        if ($this->request->getMethod() === 'post') {
+        if (strtolower($this->request->getMethod()) === 'post') {
             $rules = [
                 'title' => 'required|min_length[3]|max_length[255]',
                 'author' => 'required|min_length[3]|max_length[255]',
@@ -135,7 +132,6 @@ class Book extends BaseController
 
             if ($this->validate($rules)) {
                 $bookData = [
-                    'id' => $id,
                     'title' => $this->request->getPost('title'),
                     'author' => $this->request->getPost('author'),
                     'isbn' => $this->request->getPost('isbn'),
@@ -148,12 +144,10 @@ class Book extends BaseController
                     'status' => $this->request->getPost('status')
                 ];
 
-                if ($this->bookModel->save($bookData)) {
-                    session()->setFlashdata('success', 'Book was successfully updated!');
-                    return redirect()->to(site_url('admin/book'));
-                } else {
-                    session()->setFlashdata('error', 'Failed to update book!');
-                }
+                $this->bookModel->update($id, $bookData);
+                session()->setFlashdata('success', 'Book was successfully updated');
+                
+                return redirect()->to(site_url('admin/book'));
             } else {
                 $data['validation'] = $this->validator;
             }
@@ -177,9 +171,9 @@ class Book extends BaseController
         }
 
         if ($this->bookModel->delete($id)) {
-            session()->setFlashdata('success', 'Book was successfully deleted!');
+            session()->setFlashdata('success', 'Book was successfully deleted');
         } else {
-            session()->setFlashdata('error', 'Failed to delete book!');
+            session()->setFlashdata('error', 'Failed to delete book');
         }
 
         return redirect()->to(site_url('admin/book'));

@@ -26,7 +26,14 @@
                     <h5 class="mb-0">Book Information</h5>
                 </div>
                 <div class="card-body">
-                    <?= form_open(current_url(), ['class' => 'needs-validation', 'novalidate' => true]) ?>
+                    <?php if (isset($validation)): ?>
+                        <div class="alert alert-danger">
+                            <?= $validation->listErrors() ?>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <form action="<?= current_url() ?>" method="post">
+                        <?= csrf_field() ?>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -169,11 +176,11 @@
                                 <i class="fas fa-times"></i> Cancel
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> 
+                                <i class="fas fa-save"></i>
                                 <?= $action == 'create' ? 'Add Book' : 'Update Book' ?>
                             </button>
                         </div>
-                    <?= form_close() ?>
+                    </form>
                 </div>
             </div>
         </div>

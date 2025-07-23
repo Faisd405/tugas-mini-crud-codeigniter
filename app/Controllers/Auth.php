@@ -32,11 +32,18 @@ class Auth extends Controller
                         'isLoggedIn' => true,
                         'user_id'    => $user->id,
                         'username'   => $user->username,
-                        'name'       => $user->name,
-                        'email'      => $user->email
+                        'user_name'  => $user->name,
+                        'user_email' => $user->email,
+                        'user_role'  => $user->role ?? 'member',
+                        'user_profile_picture' => $user->profile_picture
                     ]);
                     
-                    return redirect()->to(site_url('admin/dashboard'));
+                    // Redirect based on user role
+                    if ($user->role === 'admin') {
+                        return redirect()->to(site_url('admin/dashboard'));
+                    } else {
+                        return redirect()->to(site_url('library'));
+                    }
                 } else {
                     $session = session();
                     $session->setFlashdata('error', 'Invalid username or password');

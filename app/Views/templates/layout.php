@@ -13,17 +13,23 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="<?= site_url('/') ?>">Faisal E Library</a>
+            <a class="navbar-brand" href="<?= site_url('/') ?>">
+                <i class="fas fa-book"></i> Faisal E Library
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link <?= uri_string() == '' || uri_string() == 'library' ? 'active' : '' ?>" href="<?= site_url('library') ?>">📚 Library</a>
+                        <a class="nav-link <?= uri_string() == '' || uri_string() == 'library' ? 'active' : '' ?>" href="<?= site_url('library') ?>">
+                            <i class="fas fa-home"></i> Library
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?= uri_string() == 'feedback' ? 'active' : '' ?>" href="<?= site_url('feedback') ?>">Feedback</a>
+                        <a class="nav-link <?= uri_string() == 'feedback' ? 'active' : '' ?>" href="<?= site_url('feedback') ?>">
+                            <i class="fas fa-comments"></i> Feedback
+                        </a>
                     </li>
                 </ul>
                 
@@ -114,10 +120,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>&copy; <?= date('Y') ?> Faisal E Library. All rights reserved.</p>
+                    <p class="mb-0">&copy; <?= date('Y') ?> Faisal E Library. All rights reserved.</p>
                 </div>
                 <div class="col-md-6 text-md-end">
-                    <p>Created with CodeIgniter 4</p>
+                    <p class="mb-0">
+                        <small class="text-muted">Created with CodeIgniter 4</small>
+                    </p>
                 </div>
             </div>
         </div>
@@ -140,19 +148,5 @@
             });
         }, 5000);
     </script>
-    
-    <?php if (session()->getFlashdata('success')): ?>
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '<?= session()->getFlashdata('success') ?>',
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
-    </script>
-    <?php endif; ?>
 </body>
 </html>

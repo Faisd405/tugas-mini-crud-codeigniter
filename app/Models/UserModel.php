@@ -11,27 +11,14 @@ class UserModel extends Model
     protected $useAutoIncrement = true;
     protected $returnType = 'object';
     protected $useSoftDeletes = false;
-    protected $allowedFields = ['username', 'password', 'email', 'name', 'created_at', 'updated_at'];
+    protected $allowedFields = [
+        'username', 'password', 'email', 'name', 'profile_picture', 
+        'phone', 'address', 'birth_date', 'gender', 'bio', 'role', 'status', 
+        'created_at', 'updated_at'
+    ];
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
-    
-    // Validation rules
-    protected $validationRules = [
-        'username' => 'required|min_length[3]|max_length[100]|is_unique[users.username,id,{id}]',
-        'password' => 'required|min_length[6]|max_length[255]',
-        'email'    => 'required|valid_email|max_length[100]|is_unique[users.email,id,{id}]',
-        'name'     => 'required|min_length[3]|max_length[100]'
-    ];
-    
-    protected $validationMessages = [
-        'username' => [
-            'is_unique' => 'Username already exists'
-        ],
-        'email' => [
-            'is_unique' => 'Email already exists'
-        ]
-    ];
     
     protected $skipValidation = false;
     
@@ -58,5 +45,51 @@ class UserModel extends Model
         }
         
         return password_verify($password, $user->password) ? $user : false;
+    }
+    
+    // Method to update profile without password
+    public function updateProfile($id, $data)
+    {
+        // Remove password from data if it's empty
+        if (isset($data['password']) && empty($data['password'])) {
+            unset($data['password']);
+        }
+        
+        return $this->update($id, $data);
+    }
+    
+    // Method to get user by role
+    public function getUsersByRole($role)
+    {
+        return $this->where('role', $role)->findAll();
+    }
+    
+    // Method to get active users
+    public function getActiveUsers()
+    {
+        return $this->where('status', 'active')->findAll();
+    }
+    
+    // Method to upload profile picture
+    public function uploadProfilePicture($userId, $file)
+    {
+        $uploadPath = WRITEPATH . 'uploads/profiles/';
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+        
+        if ($file->isValid() && !$file->hasMoved()) {
+            $newName = $file->getRandomName();
+            $file->move($uploadPath, $newName);
+            
+            // Update user profile picture
+            $this->update($userId, ['profile_picture' => $newName]);
+            
+            return $newName;
+        }
+        
+        return false;
     }
 }

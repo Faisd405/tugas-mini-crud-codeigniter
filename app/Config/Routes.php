@@ -9,6 +9,7 @@ $routes->get('/', 'Library::index');
 
 // Auth routes
 $routes->match(['get', 'post'], 'auth/login', 'Auth::login');
+$routes->match(['get', 'post'], 'auth/register', 'Register::index');
 $routes->get('auth/logout', 'Auth::logout');
 
 // Library routes (public)
@@ -43,3 +44,13 @@ $routes->group('admin', function($routes) {
     $routes->get('feedback', 'Admin\Feedback::index');
     $routes->get('feedback/delete/(:num)', 'Admin\Feedback::delete/$1');
 });
+
+// Profile routes
+$routes->get('profile', 'Profile::index');
+$routes->match(['get', 'post'], 'profile/edit', 'Profile::edit');
+$routes->post('profile/uploadPicture', 'Profile::uploadPicture');
+$routes->get('profile/deletePicture', 'Profile::deletePicture');
+
+// Test routes
+$routes->get('test', 'Test::index');
+$routes->post('test/post', 'Test::post');
