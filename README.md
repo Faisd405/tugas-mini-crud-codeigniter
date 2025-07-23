@@ -1,4 +1,4 @@
-# CI4 Mini Web App - Sistem Manajemen Artikel
+# Faisal E Library - Sistem Manajemen Artikel
 
 Ini adalah aplikasi web mini yang dibangun dengan CodeIgniter 4 yang menyediakan manajemen artikel, pengumpulan umpan balik pengguna, dan dasbor admin.
 
@@ -143,7 +143,7 @@ Proyek ini dilisensikan di bawah Lisensi MIT - lihat file [LICENSE](LICENSE) unt
 
 ## Kontribusi
 
-Kontribusi untuk meningkatkan CI4 Mini Web App sangat diterima. Berikut cara Anda dapat berkontribusi:
+Kontribusi untuk meningkatkan Faisal E Library sangat diterima. Berikut cara Anda dapat berkontribusi:
 
 1. Fork repositori
 2. Buat branch fitur (`git checkout -b fitur/fitur-luar-biasa`)

@@ -12,6 +12,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="<?= site_url('admin/book') ?>" class="<?= strpos(uri_string(), 'admin/book') === 0 ? 'active' : '' ?>">
+                <i class="fas fa-book me-2"></i> Books
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="<?= site_url('admin/article') ?>" class="<?= strpos(uri_string(), 'admin/article') === 0 ? 'active' : '' ?>">
                 <i class="fas fa-newspaper me-2"></i> Articles
             </a>

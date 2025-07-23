@@ -62,7 +62,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <h1 class="display-4 fw-bold mb-3">Welcome to CI4 Mini Web App</h1>
+                <h1 class="display-4 fw-bold mb-3">Welcome to Faisal E Library</h1>
                 <p class="lead mb-4">A powerful CodeIgniter-based application featuring article management, feedback collection, and an admin dashboard.</p>
                 <div class="d-flex flex-wrap gap-2">
                     <a href="<?= site_url('feedback') ?>" class="btn btn-light btn-rounded">
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div class="col-lg-6 text-center">
-                <img src="https://i.imgur.com/Wai4RDe.png" alt="CI4 Mini Web App" class="img-fluid" style="max-width: 80%;">
+                <img src="https://i.imgur.com/Wai4RDe.png" alt="Faisal E Library" class="img-fluid" style="max-width: 80%;">
             </div>
         </div>
     </div>
