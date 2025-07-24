@@ -45,8 +45,18 @@ class Register extends BaseController
                 ];
 
                 if ($this->userModel->save($userData)) {
+                    $session = session();
+                    $session->set([
+                        'isLoggedIn' => true,
+                        'user_id'    => $this->userModel->insertID(),
+                        'username'   => $this->request->getPost('username'),
+                        'user_name'  => $this->request->getPost('name'),
+                        'user_email' => $this->request->getPost('email'),
+                        'user_role'  => $this->request->getPost('role') ?? 'member',
+                        'user_profile_picture' => $this->request->getPost('profile_picture')
+                    ]);
                     session()->setFlashdata('success', 'Registration successful! You can now login.');
-                    return redirect()->to('/auth/login');
+                    return redirect()->to(site_url('/'));
                 } else {
                     session()->setFlashdata('error', 'Failed to register user!');
                 }
