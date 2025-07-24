@@ -140,36 +140,4 @@
     </div>
 </div>
 
-<!-- Borrow Modal -->
-<div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="borrowModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="borrowModalLabel">Borrow Book</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>You are about to borrow:</p>
-                <h6><?= esc($book->title) ?></h6>
-                <p class="text-muted">by <?= esc($book->author) ?></p>
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle"></i>
-                    This is a demo feature. In a real application, this would integrate with a user authentication system and borrowing management.
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="borrowBook()">Confirm Borrow</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-function borrowBook() {
-    // Demo function - in real app, this would make an AJAX request
-    alert('Book borrowed successfully! (Demo mode)');
-    $('#borrowModal').modal('hide');
-}
-</script>
 <?= $this->endSection() ?>
