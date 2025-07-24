@@ -7,6 +7,9 @@ use App\Models\ArticleModel;
 
 class Home extends BaseController
 {
+    
+    protected $helpers = ['form'];
+    
     public function index()
     {
         $articleModel = new ArticleModel();
