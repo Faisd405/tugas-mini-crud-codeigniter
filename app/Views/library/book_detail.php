@@ -72,16 +72,6 @@
                                         <p class="text-muted mt-2">No cover image</p>
                                     </div>
                                 <?php endif; ?>
-                                
-                                <?php if ($book->status == 'available' && $book->stock > 0): ?>
-                                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#borrowModal">
-                                        <i class="fas fa-download"></i> Borrow Book
-                                    </button>
-                                <?php else: ?>
-                                    <button class="btn btn-secondary btn-sm" disabled>
-                                        <i class="fas fa-times"></i> Not Available
-                                    </button>
-                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
