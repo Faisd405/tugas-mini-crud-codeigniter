@@ -207,4 +207,19 @@ class Profile extends BaseController
 
         return redirect()->to('/profile');
     }
+
+    public function profilePicture($filename = null)
+    {
+        $path = WRITEPATH . 'uploads/profiles/' . $filename;
+
+        if (!is_file($path)) {
+            // Jika tidak ada file, kirim gambar default
+            return redirect()->to('/images/default-profile.png');
+        }
+
+        $mime = mime_content_type($path);
+        return $this->response
+            ->setHeader('Content-Type', $mime)
+            ->setBody(file_get_contents($path));
+    }
 }

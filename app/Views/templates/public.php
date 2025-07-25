@@ -33,7 +33,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                                 <?php if (session()->get('user_profile_picture')): ?>
-                                    <img src="<?= base_url('writable/uploads/profiles/' . session()->get('user_profile_picture')) ?>" 
+                                    <img src="<?= base_url('profile-picture/' . session()->get('user_profile_picture')) ?>" 
                                          alt="Profile" 
                                          class="rounded-circle me-1" 
                                          style="width: 25px; height: 25px; object-fit: cover;">

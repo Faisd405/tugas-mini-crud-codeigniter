@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-body text-center">
                     <?php if (!empty($user->profile_picture)): ?>
-                        <img src="<?= base_url('writable/uploads/profiles/' . $user->profile_picture) ?>" 
+                        <img src="<?= base_url('profile-picture/' . $user->profile_picture) ?>" 
                              alt="Profile Picture" 
                              class="rounded-circle mb-3" 
                              style="width: 150px; height: 150px; object-fit: cover;">

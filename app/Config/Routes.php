@@ -7,6 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Library::index');
 
+$routes->get('/profile-picture/(:any)', 'Profile::profilePicture/$1');
+
 // Auth routes
 $routes->match(['get', 'post'], 'auth/login', 'Auth::login');
 $routes->match(['get', 'post'], 'auth/register', 'Register::index');
@@ -24,22 +26,22 @@ $routes->get('article/(:any)', 'Home::article/$1');
 $routes->match(['get', 'post'], 'feedback', 'Home::feedback');
 
 // Admin routes
-$routes->group('admin', function($routes) {
+$routes->group('admin', function ($routes) {
     $routes->get('dashboard', 'Admin\Dashboard::index');
-    
+
     // Book routes
     $routes->get('book', 'Admin\Book::index');
     $routes->match(['get', 'post'], 'book/create', 'Admin\Book::create');
     $routes->match(['get', 'post'], 'book/edit/(:num)', 'Admin\Book::edit/$1');
     $routes->get('book/delete/(:num)', 'Admin\Book::delete/$1');
     $routes->get('book/view/(:num)', 'Admin\Book::view/$1');
-    
+
     // Article routes (keep for backward compatibility)
     $routes->get('article', 'Admin\Article::index');
     $routes->match(['get', 'post'], 'article/create', 'Admin\Article::create');
     $routes->match(['get', 'post'], 'article/edit/(:num)', 'Admin\Article::edit/$1');
     $routes->get('article/delete/(:num)', 'Admin\Article::delete/$1');
-    
+
     // Feedback routes
     $routes->get('feedback', 'Admin\Feedback::index');
     $routes->get('feedback/delete/(:num)', 'Admin\Feedback::delete/$1');
