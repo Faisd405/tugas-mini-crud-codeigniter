@@ -110,4 +110,92 @@ class BookModel extends Model
         
         return $builder->get()->getResult();
     }
+    
+    /**
+     * Upload cover image for book
+     */
+    public function uploadCoverImage($bookId, $file)
+    {
+        $uploadPath = WRITEPATH . 'uploads/covers/';
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+        
+        if ($file->isValid() && !$file->hasMoved()) {
+            // Generate unique filename
+            $extension = $file->getExtension();
+            $newName = 'cover_' . $bookId . '_' . time() . '.' . $extension;
+            
+            if ($file->move($uploadPath, $newName)) {
+                // Update book cover_image field
+                $this->update($bookId, ['cover_image' => $newName]);
+                return $newName;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Upload digital file for book
+     */
+    public function uploadDigitalFile($bookId, $file)
+    {
+        $uploadPath = WRITEPATH . 'uploads/digital_files/';
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+        
+        if ($file->isValid() && !$file->hasMoved()) {
+            // Generate unique filename
+            $extension = $file->getExtension();
+            $newName = 'digital_' . $bookId . '_' . time() . '.' . $extension;
+            
+            if ($file->move($uploadPath, $newName)) {
+                // Update book digital_file field
+                $this->update($bookId, ['digital_file' => $newName]);
+                return $newName;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Delete cover image file
+     */
+    public function deleteCoverImage($bookId)
+    {
+        $book = $this->find($bookId);
+        if ($book && $book->cover_image) {
+            $filePath = WRITEPATH . 'uploads/covers/' . $book->cover_image;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            $this->update($bookId, ['cover_image' => null]);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Delete digital file
+     */
+    public function deleteDigitalFile($bookId)
+    {
+        $book = $this->find($bookId);
+        if ($book && $book->digital_file) {
+            $filePath = WRITEPATH . 'uploads/digital_files/' . $book->digital_file;
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            $this->update($bookId, ['digital_file' => null]);
+            return true;
+        }
+        return false;
+    }
 }

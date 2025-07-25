@@ -81,7 +81,7 @@
                         <div class="col-md-4">
                             <div class="text-center">
                                 <?php if (!empty($book->cover_image)): ?>
-                                    <img src="<?= base_url('uploads/covers/' . $book->cover_image) ?>" 
+                                    <img src="<?= site_url('book-cover/' . $book->cover_image) ?>" 
                                          alt="<?= esc($book->title) ?>" 
                                          class="img-thumbnail mb-3" 
                                          style="max-width: 250px;">
@@ -89,6 +89,24 @@
                                     <div class="bg-light p-5 mb-3 rounded">
                                         <i class="fas fa-book fa-4x text-muted"></i>
                                         <p class="text-muted mt-3">No cover image</p>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <!-- Digital File Section -->
+                                <?php if (!empty($book->digital_file)): ?>
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6 class="card-title">
+                                                <i class="fas fa-file-pdf text-danger"></i> Digital File Available
+                                            </h6>
+                                            <div class="d-grid gap-2">
+                                                <a href="<?= site_url('digital-file/' . $book->digital_file) ?>" 
+                                                   class="btn btn-outline-success btn-sm" 
+                                                   target="_blank">
+                                                    <i class="fas fa-eye"></i> View Digital File
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 <?php endif; ?>
                                 

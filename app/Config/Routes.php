@@ -8,6 +8,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Library::index');
 
 $routes->get('/profile-picture/(:any)', 'Profile::profilePicture/$1');
+$routes->get('/book-cover/(:any)', 'Admin\Book::coverImage/$1');
+$routes->get('/digital-file/(:any)', 'Admin\Book::digitalFile/$1');
 
 // Auth routes
 $routes->match(['get', 'post'], 'auth/login', 'Auth::login');
@@ -35,6 +37,8 @@ $routes->group('admin', function ($routes) {
     $routes->match(['get', 'post'], 'book/edit/(:num)', 'Admin\Book::edit/$1');
     $routes->get('book/delete/(:num)', 'Admin\Book::delete/$1');
     $routes->get('book/view/(:num)', 'Admin\Book::view/$1');
+    $routes->get('book/deleteCoverImage/(:num)', 'Admin\Book::deleteCoverImage/$1');
+    $routes->get('book/deleteDigitalFile/(:num)', 'Admin\Book::deleteDigitalFile/$1');
 
     // Article routes (keep for backward compatibility)
     $routes->get('article', 'Admin\Article::index');

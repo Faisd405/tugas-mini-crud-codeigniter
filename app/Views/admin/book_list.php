@@ -71,6 +71,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Cover</th>
                                         <th>Title</th>
                                         <th>Author</th>
                                         <th>ISBN</th>
@@ -86,8 +87,24 @@
                                         <tr>
                                             <td><?= esc($book->id) ?></td>
                                             <td>
+                                                <?php if (!empty($book->cover_image)): ?>
+                                                    <img src="<?= site_url('book-cover/' . $book->cover_image) ?>" 
+                                                         alt="Cover" 
+                                                         class="img-thumbnail" 
+                                                         style="width: 40px; height: 50px; object-fit: cover;">
+                                                <?php else: ?>
+                                                    <img src="<?= base_url('images/default-book-cover.png') ?>" 
+                                                         alt="No Cover" 
+                                                         class="img-thumbnail" 
+                                                         style="width: 40px; height: 50px; object-fit: cover;">
+                                                <?php endif; ?>
+                                            </td>
+                                            <td>
                                                 <strong><?= esc($book->title) ?></strong><br>
                                                 <small class="text-muted"><?= esc($book->publisher) ?></small>
+                                                <?php if (!empty($book->digital_file)): ?>
+                                                    <br><span class="badge bg-info"><i class="fas fa-file-pdf"></i> Digital</span>
+                                                <?php endif; ?>
                                             </td>
                                             <td><?= esc($book->author) ?></td>
                                             <td><code><?= esc($book->isbn) ?></code></td>

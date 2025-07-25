@@ -32,7 +32,7 @@
                         </div>
                     <?php endif; ?>
                     
-                    <form action="<?= current_url() ?>" method="post">
+                    <form action="<?= current_url() ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
                         <div class="row">
                             <div class="col-md-6">
@@ -154,6 +154,72 @@
                                     <?php if (isset($validation) && $validation->hasError('status')): ?>
                                         <div class="invalid-feedback">
                                             <?= $validation->getError('status') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- File Upload Section -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="cover_image" class="form-label">Cover Image</label>
+                                    <input type="file" class="form-control <?= isset($validation) && $validation->hasError('cover_image') ? 'is-invalid' : '' ?>" 
+                                           id="cover_image" name="cover_image" accept="image/*">
+                                    <div class="form-text">Maximum file size: 2MB. Supported formats: JPG, PNG, GIF</div>
+                                    <?php if (isset($validation) && $validation->hasError('cover_image')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= $validation->getError('cover_image') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    
+                                    <!-- Show current cover image if exists -->
+                                    <?php if ($action == 'edit' && !empty($book->cover_image)): ?>
+                                        <div class="mt-2">
+                                            <small class="text-muted">Current cover image:</small><br>
+                                            <img src="<?= site_url('book-cover/' . $book->cover_image) ?>" 
+                                                 alt="Current Cover" 
+                                                 class="img-thumbnail mt-1" 
+                                                 style="max-width: 150px; max-height: 200px;">
+                                            <br>
+                                            <a href="<?= site_url('admin/book/deleteCoverImage/' . $book->id) ?>" 
+                                               class="btn btn-sm btn-outline-danger mt-2"
+                                               onclick="return confirm('Are you sure you want to delete the cover image?')">
+                                                <i class="fas fa-trash"></i> Delete Cover
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="digital_file" class="form-label">Digital File</label>
+                                    <input type="file" class="form-control <?= isset($validation) && $validation->hasError('digital_file') ? 'is-invalid' : '' ?>" 
+                                           id="digital_file" name="digital_file" accept=".pdf,.epub,.mobi,.doc,.docx">
+                                    <div class="form-text">Maximum file size: 10MB. Supported formats: PDF, EPUB, MOBI, DOC, DOCX</div>
+                                    <?php if (isset($validation) && $validation->hasError('digital_file')): ?>
+                                        <div class="invalid-feedback">
+                                            <?= $validation->getError('digital_file') ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    
+                                    <!-- Show current digital file if exists -->
+                                    <?php if ($action == 'edit' && !empty($book->digital_file)): ?>
+                                        <div class="mt-2">
+                                            <small class="text-muted">Current digital file:</small><br>
+                                            <span class="badge bg-success"><?= esc($book->digital_file) ?></span>
+                                            <br>
+                                            <a href="<?= site_url('digital-file/' . $book->digital_file) ?>" 
+                                               class="btn btn-sm btn-outline-primary mt-2" 
+                                               target="_blank">
+                                                <i class="fas fa-eye"></i> View File
+                                            </a>
+                                            <a href="<?= site_url('admin/book/deleteDigitalFile/' . $book->id) ?>" 
+                                               class="btn btn-sm btn-outline-danger mt-2"
+                                               onclick="return confirm('Are you sure you want to delete the digital file?')">
+                                                <i class="fas fa-trash"></i> Delete File
+                                            </a>
                                         </div>
                                     <?php endif; ?>
                                 </div>

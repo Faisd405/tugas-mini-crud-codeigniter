@@ -62,7 +62,7 @@
                         <div class="col-md-4">
                             <div class="text-center">
                                 <?php if (!empty($book->cover_image)): ?>
-                                    <img src="<?= base_url('uploads/covers/' . $book->cover_image) ?>" 
+                                    <img src="<?= base_url('book-cover/' . $book->cover_image) ?>" 
                                          alt="<?= esc($book->title) ?>" 
                                          class="img-thumbnail mb-3" 
                                          style="max-width: 200px;">
